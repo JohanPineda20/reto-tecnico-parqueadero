@@ -3,6 +3,9 @@ package com.nelumbo.parking;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * @author Johan Pineda
+ */
 @SpringBootApplication
 public class ParkingApiApplication {
 

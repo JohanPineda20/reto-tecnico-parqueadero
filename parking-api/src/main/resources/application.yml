@@ -1,0 +1,9 @@
+server:
+  port: ${PORT:8090}
+  servlet:
+    context-path: /api
+spring:
+  application:
+    name: parking-api
+  profiles:
+    active: dev

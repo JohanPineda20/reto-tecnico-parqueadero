@@ -1,0 +1,21 @@
+spring:
+  config:
+    activate:
+      on-profile:
+        - dev
+  datasource:
+    url: ${DATASOURCE_URL}
+    username: ${DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
+    driver-class-name: ${DATASOURCE_DRIVER}
+  jpa:
+    hibernate:
+      ddl-auto: ${JPA_HIBERNATE_DDL_AUTO}
+    properties:
+      hibernate:
+        format_sql: ${JPA_PROPERTIES_HIBERNATE_FORMAT_SQL}
+    show-sql: ${JPA_SHOW_SQL}
+
+jwt:
+  secret-key: ${JWT_SECRET_KEY}
+  expiration-time: ${JWT_EXPIRATION_TIME}
