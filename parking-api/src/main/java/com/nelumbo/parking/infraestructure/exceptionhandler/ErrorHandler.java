@@ -10,6 +10,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.time.LocalDateTime;
 import java.util.concurrent.ConcurrentHashMap;
@@ -21,6 +22,10 @@ public class ErrorHandler {
     public ErrorHandler() {
         STATUS_CODES.put(
                 MethodArgumentNotValidException.class.getSimpleName(),
+                HttpStatus.BAD_REQUEST.value()
+        );
+        STATUS_CODES.put(
+                MethodArgumentTypeMismatchException.class.getSimpleName(),
                 HttpStatus.BAD_REQUEST.value()
         );
         STATUS_CODES.put(

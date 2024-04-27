@@ -24,4 +24,8 @@ public class UserPostgresqlAdapter implements IUserPersistencePort {
     public boolean existsByEmail(String email) {
         return userRepository.existsByEmail(email);
     }
+    @Override
+    public UserModel findById(Long id) {
+        return userEntityMapper.toUserModel(userRepository.findById(id).orElse(null));
+    }
 }

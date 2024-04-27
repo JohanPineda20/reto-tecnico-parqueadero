@@ -35,7 +35,7 @@ public class UserController {
      */
     @SecurityRequirement(name = "jwt")
     @Operation(summary = "Add a new socio user",
-            description = "If the user making the request is admin, a socio user is created.")
+            description = "Admin user is allowed to create a new socio user.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "User created", content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserResponse.class))),
             @ApiResponse(responseCode = "400", description = "UserRequest bad request", content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Exception"))),

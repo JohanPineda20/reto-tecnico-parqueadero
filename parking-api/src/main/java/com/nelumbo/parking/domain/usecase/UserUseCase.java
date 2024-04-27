@@ -30,4 +30,10 @@ public class UserUseCase implements IUserServicePort {
         userModel.setPassword(passwordEncoderPort.encode(userModel.getPassword()));
         return userPersistencePort.save(userModel);
     }
+    @Override
+    public UserModel findById(Long id){
+        var userModel = userPersistencePort.findById(id);
+        if(userModel == null) throw new DataNotFoundException(Constants.USER_NOT_FOUND);
+        return userModel;
+    }
 }

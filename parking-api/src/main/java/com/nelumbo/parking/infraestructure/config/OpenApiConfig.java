@@ -21,7 +21,11 @@ public class OpenApiConfig {
     public OpenAPI openApiConfiguration(){
 
         Schema<?> exceptionSchema = new Schema<Map<String, String>>()
-                .addProperty("message", new StringSchema().example("User not found"));
+                .addProperty("exceptionName", new StringSchema().example("DataNotFoundException"))
+                .addProperty("message", new StringSchema().example("Role not found"))
+                .addProperty("statusCode", new StringSchema().example("404"))
+                .addProperty("timestamp", new StringSchema().example("2024-04-27 14:15:50"))
+                .addProperty("controllerError", new StringSchema().example("class com.nelumbo.parking.infraestructure.in.rest.UserController"));
 
         return new OpenAPI()
                 .info(new Info()
