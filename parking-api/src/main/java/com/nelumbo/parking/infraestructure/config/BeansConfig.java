@@ -1,23 +1,21 @@
 package com.nelumbo.parking.infraestructure.config;
 
 
+import com.nelumbo.parking.domain.ports.in.IHistorialServicePort;
 import com.nelumbo.parking.domain.ports.in.IParkingServicePort;
 import com.nelumbo.parking.domain.ports.in.IUserServicePort;
 
 
+import com.nelumbo.parking.domain.ports.in.IVehicleServicePort;
 import com.nelumbo.parking.domain.ports.out.*;
+import com.nelumbo.parking.domain.usecase.HistorialUseCase;
 import com.nelumbo.parking.domain.usecase.ParkingUseCase;
 import com.nelumbo.parking.domain.usecase.UserUseCase;
+import com.nelumbo.parking.domain.usecase.VehicleUseCase;
 import com.nelumbo.parking.infraestructure.out.authenticationinfo.AuthenticationInfoAdapter;
-import com.nelumbo.parking.infraestructure.out.jpa.adapter.ParkingPostgresqlAdapter;
-import com.nelumbo.parking.infraestructure.out.jpa.adapter.RolePostgresqlAdapter;
-import com.nelumbo.parking.infraestructure.out.jpa.adapter.UserPostgresqlAdapter;
-import com.nelumbo.parking.infraestructure.out.jpa.mapper.ParkingEntityMapper;
-import com.nelumbo.parking.infraestructure.out.jpa.mapper.RoleEntityMapper;
-import com.nelumbo.parking.infraestructure.out.jpa.mapper.UserEntityMapper;
-import com.nelumbo.parking.infraestructure.out.jpa.repository.ParkingRepository;
-import com.nelumbo.parking.infraestructure.out.jpa.repository.RoleRepository;
-import com.nelumbo.parking.infraestructure.out.jpa.repository.UserRepository;
+import com.nelumbo.parking.infraestructure.out.jpa.adapter.*;
+import com.nelumbo.parking.infraestructure.out.jpa.mapper.*;
+import com.nelumbo.parking.infraestructure.out.jpa.repository.*;
 import com.nelumbo.parking.infraestructure.out.passwordencoder.PasswordEncoderAdapter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -41,6 +39,16 @@ public class BeansConfig {
         return new ParkingPostgresqlAdapter(parkingRepository, parkingEntityMapper);
     }
     @Bean
+    public IHistorialPersistencePort historialPersistencePort(HistorialRepository historialRepository,
+                                                              HistorialEntityMapper historialEntityMapper){
+        return new HistorialPostgresqlAdapter(historialRepository, historialEntityMapper);
+    }
+    @Bean
+    public IVehiclePersistencePort vehiclePersistencePort(VehicleRepository vehicleRepository,
+                                                          VehicleEntityMapper vehicleEntityMapper){
+        return new VehiclePostgresqlAdapter(vehicleRepository, vehicleEntityMapper);
+    }
+    @Bean
     public IPasswordEncoderPort passwordEncoderPort(PasswordEncoder passwordEncoder){
         return new PasswordEncoderAdapter(passwordEncoder);
     }
@@ -60,5 +68,16 @@ public class BeansConfig {
                                                   IUserServicePort userServicePort,
                                                   IAuthenticationInfoPort authenticationInfoPort){
         return new ParkingUseCase(parkingPersistencePort, userServicePort, authenticationInfoPort);
+    }
+    @Bean
+    public IHistorialServicePort historialServicePort(IHistorialPersistencePort historialPersistencePort,
+                                                      IParkingServicePort parkingServicePort,
+                                                      IVehicleServicePort vehicleServicePort,
+                                                      IAuthenticationInfoPort authenticationInfoPort){
+        return new HistorialUseCase(historialPersistencePort, parkingServicePort, vehicleServicePort, authenticationInfoPort);
+    }
+    @Bean
+    public IVehicleServicePort vehicleServicePort(IVehiclePersistencePort vehiclePersistencePort){
+        return new VehicleUseCase(vehiclePersistencePort);
     }
 }
