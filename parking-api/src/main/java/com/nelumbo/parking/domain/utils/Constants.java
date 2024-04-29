@@ -6,6 +6,7 @@ import lombok.experimental.UtilityClass;
 public class Constants {
     public static final byte ZERO = 0;
     public static final Long ID_SOCIO = 2L;
+    public static final String SOCIO = "SOCIO";
     public static final String ROLE_NOT_FOUND = "Role not found";
     public static final String USER_NOT_FOUND = "User not found";
     public static final String PARKING_NOT_FOUND = "Parking not found";

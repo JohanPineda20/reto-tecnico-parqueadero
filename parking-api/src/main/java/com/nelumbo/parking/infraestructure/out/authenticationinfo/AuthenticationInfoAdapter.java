@@ -10,4 +10,8 @@ public class AuthenticationInfoAdapter implements IAuthenticationInfoPort {
         UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return userDetails.getId();
     }
+    @Override
+    public String getRolFromAuthentication() {
+        return SecurityContextHolder.getContext().getAuthentication().getAuthorities().toArray()[0].toString();
+    }
 }

@@ -1,9 +1,12 @@
 package com.nelumbo.parking.application.handler.impl;
 
 import com.nelumbo.parking.application.dto.request.ParkingRequest;
+import com.nelumbo.parking.application.dto.response.HistorialResponse;
 import com.nelumbo.parking.application.dto.response.ParkingResponse;
+import com.nelumbo.parking.application.dto.response.VehicleResponse;
 import com.nelumbo.parking.application.handler.IParkingHandler;
 import com.nelumbo.parking.application.mapper.ParkingDtoMapper;
+import com.nelumbo.parking.domain.ports.in.IHistorialServicePort;
 import com.nelumbo.parking.domain.ports.in.IParkingServicePort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,6 +21,7 @@ import java.util.stream.Collectors;
 public class ParkingHandlerImpl implements IParkingHandler {
     private final IParkingServicePort parkingServicePort;
     private final ParkingDtoMapper parkingDtoMapper;
+    private final IHistorialServicePort historialServicePort;
     @Override
     public ParkingResponse createParking(ParkingRequest parkingRequest) {
         return parkingDtoMapper.toParkingResponse(parkingServicePort.createParking(parkingDtoMapper.toParkingModel(parkingRequest)));
@@ -42,10 +46,18 @@ public class ParkingHandlerImpl implements IParkingHandler {
                 .collect(Collectors.toList());
     }
     @Override
-    public List<ParkingResponse> getAllParkingsFromSocio(Integer page, Integer size) {
-        return parkingServicePort.getAllParkingsFromSocio(page, size)
+    public List<HistorialResponse> getAllVehiclesInParking(Integer page, Integer size, Long parkingId) {
+        return historialServicePort.getAllVehiclesInParking(page, size, parkingId)
                 .stream()
-                .map(parkingDtoMapper::toParkingResponse)
+                .map(historialModel -> {
+                    VehicleResponse vehicleResponse = new VehicleResponse();
+                    vehicleResponse.setId(historialModel.getVehicle().getId());
+                    vehicleResponse.setLicensePlate(historialModel.getVehicle().getLicensePlate());
+                    HistorialResponse historialResponse = new HistorialResponse();
+                    historialResponse.setVehicle(vehicleResponse);
+                    historialResponse.setEntryDate(historialModel.getEntryDate());
+                    return historialResponse;
+                })
                 .collect(Collectors.toList());
     }
 }

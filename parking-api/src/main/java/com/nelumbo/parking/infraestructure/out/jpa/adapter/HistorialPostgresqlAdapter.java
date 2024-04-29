@@ -5,6 +5,10 @@ import com.nelumbo.parking.domain.ports.out.IHistorialPersistencePort;
 import com.nelumbo.parking.infraestructure.out.jpa.mapper.HistorialEntityMapper;
 import com.nelumbo.parking.infraestructure.out.jpa.repository.HistorialRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,5 +32,13 @@ public class HistorialPostgresqlAdapter implements IHistorialPersistencePort {
     @Override
     public HistorialModel save(HistorialModel historialModel) {
         return historialEntityMapper.toHistorialModel(historialRepository.save(historialEntityMapper.toHistorialEntity(historialModel)));
+    }
+    @Override
+    public List<HistorialModel> getAllHistorialByParkingIdAndDepartureDateIsNullPagination(Integer page, Integer size, Long parkingId) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "vehicle.licensePlate"));
+        return historialRepository.findByParkingIdAndDepartureDateIsNull(pageable, parkingId).getContent()
+                .stream()
+                .map(historialEntityMapper::toHistorialModel)
+                .collect(Collectors.toList());
     }
 }

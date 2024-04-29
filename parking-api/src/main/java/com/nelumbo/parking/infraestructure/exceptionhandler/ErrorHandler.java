@@ -2,6 +2,7 @@ package com.nelumbo.parking.infraestructure.exceptionhandler;
 
 import com.nelumbo.parking.domain.utils.exceptions.DataAlreadyExistsException;
 import com.nelumbo.parking.domain.utils.exceptions.DataNotFoundException;
+import com.nelumbo.parking.domain.utils.exceptions.DomainException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +39,10 @@ public class ErrorHandler {
         );
         STATUS_CODES.put(
                 DataAlreadyExistsException.class.getSimpleName(),
+                HttpStatus.CONFLICT.value()
+        );
+        STATUS_CODES.put(
+                DomainException.class.getSimpleName(),
                 HttpStatus.CONFLICT.value()
         );
     }

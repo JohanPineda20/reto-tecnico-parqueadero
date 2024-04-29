@@ -1,6 +1,7 @@
 package com.nelumbo.parking.infraestructure.in.rest;
 
 import com.nelumbo.parking.application.dto.request.ParkingRequest;
+import com.nelumbo.parking.application.dto.response.HistorialResponse;
 import com.nelumbo.parking.application.dto.response.ParkingResponse;
 import com.nelumbo.parking.application.handler.IParkingHandler;
 import io.swagger.v3.oas.annotations.Operation;
@@ -91,30 +92,23 @@ public class ParkingController {
     }
     @SecurityRequirement(name = "jwt")
     @Operation(summary = "Get all parkings from the database",
-            description = "Admin user is allowed to all parkings from the database")
+            description = "The admin user will get all the parkings from the database while the socio user will only get its parkings")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Parkings are successfully returned", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ParkingResponse.class)))),
             @ApiResponse(responseCode = "400", description = "Bad request", content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Exception"))),
             @ApiResponse(responseCode = "401", description = "Access denied", content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Exception")))
     })
     @GetMapping
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'SOCIO')")
     public ResponseEntity<List<ParkingResponse>> getAllParkings(@RequestParam(defaultValue = "0") Integer page,
                                                                 @RequestParam(defaultValue = "10") Integer size){
         return ResponseEntity.status(HttpStatus.OK).body(parkingHandler.getAllParkings(page, size));
     }
-    @SecurityRequirement(name = "jwt")
-    @Operation(summary = "Get all parkings from a socio user",
-            description = "Socio user is allowed to get all its parkings")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Parkings are successfully returned", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ParkingResponse.class)))),
-            @ApiResponse(responseCode = "400", description = "Bad request", content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Exception"))),
-            @ApiResponse(responseCode = "401", description = "Access denied", content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Exception")))
-    })
-    @GetMapping("/socio")
-    @PreAuthorize("hasAuthority('SOCIO')")
-    public ResponseEntity<List<ParkingResponse>> getAllParkingsFromSocio(@RequestParam(defaultValue = "0") Integer page,
-                                                                         @RequestParam(defaultValue = "10") Integer size){
-        return ResponseEntity.ok(parkingHandler.getAllParkingsFromSocio(page, size));
+    @GetMapping("/{id}/vehicle")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'SOCIO')")
+    public ResponseEntity<List<HistorialResponse>> getAllVehiclesInParking(@RequestParam(defaultValue = "0") Integer page,
+                                                                           @RequestParam(defaultValue = "10") Integer size,
+                                                                           @PathVariable Long id){
+        return ResponseEntity.ok(parkingHandler.getAllVehiclesInParking(page, size, id));
     }
 }

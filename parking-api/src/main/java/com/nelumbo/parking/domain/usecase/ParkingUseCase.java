@@ -53,13 +53,14 @@ public class ParkingUseCase implements IParkingServicePort {
     }
     @Override
     public List<ParkingModel> getAllParkings(Integer page, Integer size) {
+        String role = authenticationInfoPort.getRolFromAuthentication();
+        if(Objects.equals(role, Constants.SOCIO)) {
+            Long socioId = authenticationInfoPort.getIdFromAuthentication();
+            return parkingPersistencePort.getAllParkingsFromSocio(page, size, socioId);
+        }
         return parkingPersistencePort.getAllParkings(page, size);
     }
-    @Override
-    public List<ParkingModel> getAllParkingsFromSocio(Integer page, Integer size) {
-        Long socioId = authenticationInfoPort.getIdFromAuthentication();
-        return parkingPersistencePort.getAllParkingsFromSocio(page, size, socioId);
-    }
+
 
     private UserModel validateUserSocio(Long userId) {
         var userModel = userServicePort.findById(userId);

@@ -8,4 +8,5 @@ public interface IHistorialPersistencePort {
     List<HistorialModel> getAllHistorialByParkingIdAndDepartureDateIsNull(Long parkingId);
     HistorialModel findByVehicleIdAndDepartureDateIsNull(Long vehicleId);
     HistorialModel save(HistorialModel historialModel);
+    List<HistorialModel> getAllHistorialByParkingIdAndDepartureDateIsNullPagination(Integer page, Integer size, Long parkingId);
 }

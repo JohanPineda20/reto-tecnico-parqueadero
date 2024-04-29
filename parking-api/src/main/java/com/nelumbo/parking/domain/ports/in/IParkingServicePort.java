@@ -10,5 +10,4 @@ public interface IParkingServicePort {
     void deleteParkingById(Long id);
     ParkingModel getParkingById(Long id);
     List<ParkingModel> getAllParkings(Integer page, Integer size);
-    List<ParkingModel> getAllParkingsFromSocio(Integer page, Integer size);
 }

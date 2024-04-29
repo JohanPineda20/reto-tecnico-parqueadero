@@ -51,4 +51,14 @@ public class HistorialUseCase implements IHistorialServicePort {
 
         return Collections.singletonMap("id", historialId);
     }
+    @Override
+    public List<HistorialModel> getAllVehiclesInParking(Integer page, Integer size, Long parkingId){
+        String rol = authenticationInfoPort.getRolFromAuthentication();
+        ParkingModel parkingModel = parkingServicePort.getParkingById(parkingId);
+        if(Objects.equals(rol, Constants.SOCIO)) {
+            Long socioId = authenticationInfoPort.getIdFromAuthentication();
+            if(!Objects.equals(socioId, parkingModel.getUser().getId())) throw new DomainException(Constants.USER_IS_NOT_PARKING_SOCIO);
+        }
+        return historialPersistencePort.getAllHistorialByParkingIdAndDepartureDateIsNullPagination(page, size, parkingId);
+    }
 }

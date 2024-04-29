@@ -27,4 +27,6 @@ public class ParkingEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
+    @OneToMany(mappedBy = "parking", cascade = CascadeType.REMOVE)
+    private List<HistorialEntity> historiales;
 }
