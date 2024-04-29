@@ -2,6 +2,8 @@ package com.nelumbo.parking.application.handler.impl;
 
 import com.nelumbo.parking.application.dto.request.HistorialRequest;
 
+import com.nelumbo.parking.application.dto.response.MetricVehicleResponse;
+import com.nelumbo.parking.application.dto.response.VehicleResponse;
 import com.nelumbo.parking.application.handler.IHistorialHandler;
 import com.nelumbo.parking.domain.model.VehicleModel;
 import com.nelumbo.parking.domain.ports.in.IHistorialServicePort;
@@ -9,7 +11,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -25,5 +29,33 @@ public class HistorialHandler implements IHistorialHandler {
     @Override
     public Map<String, String> registerVehicleDeparture(HistorialRequest historialRequest) {
         return historialServicePort.registerVehicleDeparture(historialRequest.getLicensePlate().toUpperCase(), historialRequest.getParkingId());
+    }
+    @Override
+    public List<MetricVehicleResponse> getTop10MostParkedVehicles() {
+        return historialServicePort.getTop10MostParkedVehicles()
+                .stream()
+                .map(objectArray -> {
+                    VehicleResponse vehicleResponse = new VehicleResponse();
+                    vehicleResponse.setId((Long) objectArray[0]);
+                    vehicleResponse.setLicensePlate(objectArray[1].toString());
+                    MetricVehicleResponse metricVehicleResponse = new MetricVehicleResponse();
+                    metricVehicleResponse.setVehicle(vehicleResponse);
+                    metricVehicleResponse.setCount((Long) objectArray[2]);
+                    return metricVehicleResponse;
+                }).collect(Collectors.toList());
+    }
+    @Override
+    public List<MetricVehicleResponse> getTop10MostParkedVehiclesByParking(Long id) {
+        return historialServicePort.getTop10MostParkedVehiclesByParking(id)
+                .stream()
+                .map(objectArray -> {
+                    VehicleResponse vehicleResponse = new VehicleResponse();
+                    vehicleResponse.setId((Long) objectArray[0]);
+                    vehicleResponse.setLicensePlate(objectArray[1].toString());
+                    MetricVehicleResponse metricVehicleResponse = new MetricVehicleResponse();
+                    metricVehicleResponse.setVehicle(vehicleResponse);
+                    metricVehicleResponse.setCount((Long) objectArray[2]);
+                    return metricVehicleResponse;
+                }).collect(Collectors.toList());
     }
 }

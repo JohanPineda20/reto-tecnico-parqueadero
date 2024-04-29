@@ -88,6 +88,25 @@ public class HistorialUseCase implements IHistorialServicePort {
         historialPersistencePort.save(historialModel);
         return Collections.singletonMap("mensaje","Salida registrada");
     }
+    @Override
+    public List<Object[]> getTop10MostParkedVehicles() {
+        String rol = authenticationInfoPort.getRolFromAuthentication();
+        if(Objects.equals(rol, Constants.SOCIO)) {
+            Long socioId = authenticationInfoPort.getIdFromAuthentication();
+            return historialPersistencePort.getTop10MostParkedVehiclesInSocioParkings(socioId);
+        }
+        return historialPersistencePort.getTop10MostParkedVehicles();
+    }
+    @Override
+    public List<Object[]> getTop10MostParkedVehiclesByParking(Long parkingId) {
+        String rol = authenticationInfoPort.getRolFromAuthentication();
+        ParkingModel parkingModel = parkingServicePort.getParkingById(parkingId);
+        if(Objects.equals(rol, Constants.SOCIO)) {
+            Long socioId = authenticationInfoPort.getIdFromAuthentication();
+            if(!Objects.equals(socioId, parkingModel.getUser().getId())) throw new DomainException(Constants.USER_IS_NOT_PARKING_SOCIO);
+        }
+        return historialPersistencePort.getTop10MostParkedVehiclesByParking(parkingId);
+    }
 
     private Double calculateTime(LocalDateTime entryDate, LocalDateTime departureDate) {
         Duration duration = Duration.between(entryDate, departureDate);

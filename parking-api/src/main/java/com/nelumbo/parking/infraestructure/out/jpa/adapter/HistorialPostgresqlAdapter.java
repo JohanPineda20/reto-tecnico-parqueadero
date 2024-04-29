@@ -45,4 +45,19 @@ public class HistorialPostgresqlAdapter implements IHistorialPersistencePort {
     public HistorialModel findByVehicleIdAndParkingIdAndDepartureDateIsNull(Long vehicleId, Long parkingId) {
         return historialEntityMapper.toHistorialModel(historialRepository.findByVehicleIdAndParkingIdAndDepartureDateIsNull(vehicleId, parkingId));
     }
+
+    @Override
+    public List<Object[]> getTop10MostParkedVehiclesInSocioParkings(Long socioId) {
+        return historialRepository.getTop10MostParkedVehiclesInSocioParkings(socioId);
+    }
+
+    @Override
+    public List<Object[]> getTop10MostParkedVehicles() {
+        return historialRepository.getTop10MostParkedVehicles();
+    }
+
+    @Override
+    public List<Object[]> getTop10MostParkedVehiclesByParking(Long parkingId) {
+        return historialRepository.getTop10MostParkedVehiclesByParking(parkingId);
+    }
 }

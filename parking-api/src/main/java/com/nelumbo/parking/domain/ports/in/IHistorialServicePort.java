@@ -10,4 +10,6 @@ public interface IHistorialServicePort {
     Map<String, Long> registerVehicleEntry(VehicleModel vehicleModel, Long parkingId);
     List<HistorialModel> getAllVehiclesInParking(Integer page, Integer size, Long parkingId);
     Map<String, String> registerVehicleDeparture(String licensePlate, Long parkingId);
+    List<Object[]> getTop10MostParkedVehicles();
+    List<Object[]> getTop10MostParkedVehiclesByParking(Long parkingId);
 }
