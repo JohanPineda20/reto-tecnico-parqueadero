@@ -11,4 +11,5 @@ public interface HistorialRepository extends JpaRepository<HistorialEntity, Long
     List<HistorialEntity> findByParkingIdAndDepartureDateIsNull(Long parkingId);
     HistorialEntity findByVehicleIdAndDepartureDateIsNull(Long vehicleId);
     Page<HistorialEntity> findByParkingIdAndDepartureDateIsNull(Pageable pageable, Long parkingId);
+    HistorialEntity findByVehicleIdAndParkingIdAndDepartureDateIsNull(Long vehicleId, Long parkingId);
 }

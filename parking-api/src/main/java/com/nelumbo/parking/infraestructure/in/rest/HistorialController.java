@@ -25,4 +25,9 @@ public class HistorialController {
     public ResponseEntity<Map<String, Long>> registerVehicleEntry(@Valid @RequestBody HistorialRequest vehicleEntryRequest){
         return ResponseEntity.status(HttpStatus.CREATED).body(historialHandler.registerVehicleEntry(vehicleEntryRequest));
     }
+    @PostMapping("/vehicle-departure")
+    @PreAuthorize("hasAuthority('SOCIO')")
+    public ResponseEntity<Map<String, String>> registerVehicleDeparture(@Valid @RequestBody HistorialRequest vehicleDepartureRequest){
+        return ResponseEntity.ok(historialHandler.registerVehicleDeparture(vehicleDepartureRequest));
+    }
 }

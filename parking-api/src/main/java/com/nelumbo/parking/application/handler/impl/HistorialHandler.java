@@ -22,4 +22,8 @@ public class HistorialHandler implements IHistorialHandler {
         VehicleModel vehicleModel = new VehicleModel(null, historialRequest.getDescription(), historialRequest.getLicensePlate().toUpperCase());
         return historialServicePort.registerVehicleEntry(vehicleModel, historialRequest.getParkingId());
     }
+    @Override
+    public Map<String, String> registerVehicleDeparture(HistorialRequest historialRequest) {
+        return historialServicePort.registerVehicleDeparture(historialRequest.getLicensePlate().toUpperCase(), historialRequest.getParkingId());
+    }
 }

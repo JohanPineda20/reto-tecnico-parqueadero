@@ -14,6 +14,8 @@ import com.nelumbo.parking.domain.utils.exceptions.DomainException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.math.BigDecimal;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -60,5 +62,35 @@ public class HistorialUseCase implements IHistorialServicePort {
             if(!Objects.equals(socioId, parkingModel.getUser().getId())) throw new DomainException(Constants.USER_IS_NOT_PARKING_SOCIO);
         }
         return historialPersistencePort.getAllHistorialByParkingIdAndDepartureDateIsNullPagination(page, size, parkingId);
+    }
+    @Override
+    public Map<String, String> registerVehicleDeparture(String licensePlate, Long parkingId) {
+        Long socioId = authenticationInfoPort.getIdFromAuthentication();
+        ParkingModel parkingModel = parkingServicePort.getParkingById(parkingId);
+        if(!Objects.equals(socioId, parkingModel.getUser().getId())) throw new DomainException(Constants.USER_IS_NOT_PARKING_SOCIO);
+
+        VehicleModel vehicleModel = vehicleServicePort.getByLicensePlate(licensePlate);
+        if (vehicleModel == null) {
+            throw new DomainException(Constants.VEHICLE_IS_NOT_THE_PARKING);
+        }
+        HistorialModel historialModel = historialPersistencePort.findByVehicleIdAndParkingIdAndDepartureDateIsNull(vehicleModel.getId(), parkingId);
+        if (historialModel == null) {
+            throw new DomainException(Constants.VEHICLE_IS_NOT_THE_PARKING);
+        }
+
+        LocalDateTime entryDate = historialModel.getEntryDate();
+        LocalDateTime departureDate = LocalDateTime.now();
+        Double hours = calculateTime(entryDate, departureDate);
+        BigDecimal payment =  BigDecimal.valueOf(hours).multiply(parkingModel.getCostPerHour());
+
+        historialModel.setDepartureDate(departureDate);
+        historialModel.setPayment(payment);
+        historialPersistencePort.save(historialModel);
+        return Collections.singletonMap("mensaje","Salida registrada");
+    }
+
+    private Double calculateTime(LocalDateTime entryDate, LocalDateTime departureDate) {
+        Duration duration = Duration.between(entryDate, departureDate);
+        return duration.toMinutes() / 60.0;
     }
 }

@@ -6,4 +6,5 @@ import java.util.Map;
 
 public interface IHistorialHandler {
     Map<String, Long> registerVehicleEntry(HistorialRequest vehicleEntryRequest);
+    Map<String, String> registerVehicleDeparture(HistorialRequest vehicleDepartureRequest);
 }
