@@ -58,4 +58,26 @@ public class HistorialHandler implements IHistorialHandler {
                     return metricVehicleResponse;
                 }).collect(Collectors.toList());
     }
+    @Override
+    public List<VehicleResponse> getFirstTimeParkedVehiclesByParking(Long id) {
+        return historialServicePort.getFirstTimeParkedVehiclesByParking(id)
+                .stream()
+                .map(objectArray ->{
+                    VehicleResponse vehicleResponse = new VehicleResponse();
+                    vehicleResponse.setId((Long) objectArray[0]);
+                    vehicleResponse.setLicensePlate(objectArray[1].toString());
+                    return vehicleResponse;
+                }).collect(Collectors.toList());
+    }
+    @Override
+    public List<VehicleResponse> getVehicleByLicensePlate(String licensePlate) {
+        return historialServicePort.getVehicleByLicensePlate(licensePlate)
+                .stream()
+                .map(historialModel -> {
+                    VehicleResponse vehicleResponse = new VehicleResponse();
+                    vehicleResponse.setId(historialModel.getVehicle().getId());
+                    vehicleResponse.setLicensePlate(historialModel.getVehicle().getLicensePlate());
+                    return vehicleResponse;
+                }).collect(Collectors.toList());
+    }
 }

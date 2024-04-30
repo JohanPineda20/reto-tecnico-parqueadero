@@ -12,4 +12,6 @@ public interface IHistorialServicePort {
     Map<String, String> registerVehicleDeparture(String licensePlate, Long parkingId);
     List<Object[]> getTop10MostParkedVehicles();
     List<Object[]> getTop10MostParkedVehiclesByParking(Long parkingId);
+    List<Object[]> getFirstTimeParkedVehiclesByParking(Long parkingId);
+    List<HistorialModel> getVehicleByLicensePlate(String licensePlate);
 }

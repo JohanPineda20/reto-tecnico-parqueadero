@@ -1,6 +1,7 @@
 package com.nelumbo.parking.infraestructure.in.rest;
 
 import com.nelumbo.parking.application.dto.response.MetricVehicleResponse;
+import com.nelumbo.parking.application.dto.response.VehicleResponse;
 import com.nelumbo.parking.application.handler.IHistorialHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -29,5 +30,17 @@ public class MetricController {
     @PreAuthorize("hasAnyAuthority('ADMIN', 'SOCIO')")
     public ResponseEntity<List<MetricVehicleResponse>> getTop10MostParkedVehiclesByParking(@PathVariable Long id){
         return ResponseEntity.ok(historialHandler.getTop10MostParkedVehiclesByParking(id));
+    }
+
+    @GetMapping("/first-time-parked-vehicles/parking/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'SOCIO')")
+    public ResponseEntity<List<VehicleResponse>> getFirstTimeParkedVehiclesByParking(@PathVariable Long id){
+        return ResponseEntity.ok(historialHandler.getFirstTimeParkedVehiclesByParking(id));
+    }
+
+    @GetMapping("/vehicle/{licensePlate}")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'SOCIO')")
+    public ResponseEntity<List<VehicleResponse>> getVehicleByLicensePlate(@PathVariable String licensePlate){
+        return ResponseEntity.ok(historialHandler.getVehicleByLicensePlate(licensePlate));
     }
 }

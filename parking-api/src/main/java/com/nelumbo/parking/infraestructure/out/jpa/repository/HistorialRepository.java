@@ -39,4 +39,23 @@ public interface HistorialRepository extends JpaRepository<HistorialEntity, Long
             "ORDER BY count DESC " +
             "LIMIT 10")
     List<Object[]> getTop10MostParkedVehiclesByParking(Long parkingId); //Admin y Socio
+
+
+    //Obtener los vehiculos parqueados por primera vez en un parqueadero
+    @Query("SELECT h.vehicle.id AS id, h.vehicle.licensePlate AS licensePlate " +
+            "FROM HistorialEntity h " +
+            "WHERE h.parking.id =:parkingId " +
+            "GROUP BY id, licensePlate " +
+            "HAVING COUNT(h.vehicle.id) = 1")
+    List<Object[]> getFirstTimeParkedVehiclesByParking(Long parkingId); //Admin y Socio
+
+
+    //Buscar vehiculos parqueados por coincidencia de placa
+    List<HistorialEntity> findByVehicleLicensePlateContainingIgnoreCaseAndDepartureDateIsNull(String licensePlate); //Admin
+    @Query("SELECT h " +
+            "FROM HistorialEntity h JOIN h.parking p JOIN p.user u " +
+            "WHERE u.id =:socioId " +
+            "AND h.vehicle.licensePlate ILIKE %:licensePlate% " +
+            "AND h.departureDate IS NULL")
+    List<HistorialEntity> findByVehicleLicensePlateContainingIgnoreCaseAndDepartureDateIsNullInSocioParkings(Long socioId, String licensePlate); //Socio
 }

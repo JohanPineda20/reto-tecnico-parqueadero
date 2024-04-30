@@ -13,4 +13,7 @@ public interface IHistorialPersistencePort {
     List<Object[]> getTop10MostParkedVehiclesInSocioParkings(Long socioId);
     List<Object[]> getTop10MostParkedVehicles();
     List<Object[]> getTop10MostParkedVehiclesByParking(Long parkingId);
+    List<Object[]> getFirstTimeParkedVehiclesByParking(Long parkingId);
+    List<HistorialModel> getVehicleByLicensePlateInSocioParkings(Long socioId, String licensePlate);
+    List<HistorialModel> getVehicleByLicensePlate(String licensePlate);
 }
