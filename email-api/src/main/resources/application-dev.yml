@@ -1,0 +1,15 @@
+spring:
+  config:
+    activate:
+      on-profile:
+        - dev
+  mail:
+    host: ${HOST_MAIL:smtp.gmail.com}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    port: ${MAIL_PORT:465}
+    properties:
+      mail:
+        smtp:
+          ssl:
+            enable: ${MAIL_SSL_ENABLE:true}

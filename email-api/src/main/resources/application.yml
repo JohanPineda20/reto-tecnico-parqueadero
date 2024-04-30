@@ -1,0 +1,9 @@
+server:
+  port: ${PORT:8091}
+  servlet:
+    context-path: /api
+spring:
+  application:
+    name: email-api
+  profiles:
+    active: dev
