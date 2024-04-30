@@ -4,6 +4,7 @@ import com.nelumbo.parking.application.dto.request.HistorialRequest;
 import com.nelumbo.parking.application.dto.response.MetricVehicleResponse;
 import com.nelumbo.parking.application.dto.response.VehicleResponse;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -14,4 +15,5 @@ public interface IHistorialHandler {
     List<MetricVehicleResponse> getTop10MostParkedVehiclesByParking(Long id);
     List<VehicleResponse> getFirstTimeParkedVehiclesByParking(Long id);
     List<VehicleResponse> getVehicleByLicensePlate(String licensePlate);
+    Map<String, BigDecimal> getCashIncomeByParking(Long id);
 }

@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -79,5 +80,9 @@ public class HistorialHandler implements IHistorialHandler {
                     vehicleResponse.setLicensePlate(historialModel.getVehicle().getLicensePlate());
                     return vehicleResponse;
                 }).collect(Collectors.toList());
+    }
+    @Override
+    public Map<String, BigDecimal> getCashIncomeByParking(Long id) {
+        return historialServicePort.getCashIncomeByParking(id);
     }
 }

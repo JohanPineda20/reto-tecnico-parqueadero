@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -125,6 +126,13 @@ public class HistorialUseCase implements IHistorialServicePort {
             return historialPersistencePort.getVehicleByLicensePlateInSocioParkings(socioId, licensePlate);
         }
         return historialPersistencePort.getVehicleByLicensePlate(licensePlate);
+    }
+    @Override
+    public Map<String, BigDecimal> getCashIncomeByParking(Long parkingId){
+        Long socioId = authenticationInfoPort.getIdFromAuthentication();
+        ParkingModel parkingModel = parkingServicePort.getParkingById(parkingId);
+        if(!Objects.equals(socioId, parkingModel.getUser().getId())) throw new DomainException(Constants.USER_IS_NOT_PARKING_SOCIO);
+        return historialPersistencePort.getCashIncomeByParking(parkingId, LocalDate.now());
     }
 
     private Double calculateTime(LocalDateTime entryDate, LocalDateTime departureDate) {

@@ -1,0 +1,674 @@
+{
+	"info": {
+		"_postman_id": "64cc0e20-0aa4-4581-ac6f-7ce0e16e0445",
+		"name": "Reto Parqueadero Nelumbo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29424491"
+	},
+	"item": [
+		{
+			"name": "Parking-api",
+			"item": [
+				{
+					"name": "Admin",
+					"item": [
+						{
+							"name": "Crear socio",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2hhbnBpbmVkYTIwMDc4QGdtYWlsLmNvbSIsImlhdCI6MTcxNDIzODY0NywiZXhwIjoxNzE0MjYwMjQ3LCJpZCI6Miwicm9sZSI6IlNPQ0lPIn0.FxQg-JzbwSI8aw2OS9ZYr6a2YJpBJ9UiNsQ7RI_WJ9HoTML_7sq7bYHy8WCit1HbCIYC47jn2BqmaIjIBa2J0w",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"johan\",\r\n    \"lastname\": \"pineda\",\r\n    \"dni\": \"1754543243\",\r\n    \"phone\": \"324236546\",\r\n    \"email\": \"johanpineda20078@gmail.com\",\r\n    \"password\": \"contraseña\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8090/api/v1/user",
+									"host": [
+										"localhost"
+									],
+									"port": "8090",
+									"path": [
+										"api",
+										"v1",
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Crear parqueadero",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLmNvbSIsImlhdCI6MTcxNDI0Mjg5MSwiZXhwIjoxNzE0MjY0NDkxLCJpZCI6MSwicm9sZSI6IkFETUlOIn0.i_9Kjl3WznGgV7eWHTsbzaQU8wp_k-DttYo50S8_hK1UYI4x8IRKT2BkQjaQkJZ6Qd4h9tm_Onaj-_P9n2aF5A",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Parqueadero La raza\",\r\n    \"capacity\": 35.1,\r\n    \"costPerHour\": 1800.1,\r\n    \"userId\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8090/api/v1/parking",
+									"host": [
+										"localhost"
+									],
+									"port": "8090",
+									"path": [
+										"api",
+										"v1",
+										"parking"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Actualizar parqueadero",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLmNvbSIsImlhdCI6MTcxNDI0Mjg5MSwiZXhwIjoxNzE0MjY0NDkxLCJpZCI6MSwicm9sZSI6IkFETUlOIn0.i_9Kjl3WznGgV7eWHTsbzaQU8wp_k-DttYo50S8_hK1UYI4x8IRKT2BkQjaQkJZ6Qd4h9tm_Onaj-_P9n2aF5A",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Parqueadero Velez\",\r\n    \"capacity\": 34,\r\n    \"costPerHour\": 1010,\r\n    \"userId\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8090/api/v1/parking/2",
+									"host": [
+										"localhost"
+									],
+									"port": "8090",
+									"path": [
+										"api",
+										"v1",
+										"parking",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Eliminar parqueadero",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLmNvbSIsImlhdCI6MTcxNDI0Mjg5MSwiZXhwIjoxNzE0MjY0NDkxLCJpZCI6MSwicm9sZSI6IkFETUlOIn0.i_9Kjl3WznGgV7eWHTsbzaQU8wp_k-DttYo50S8_hK1UYI4x8IRKT2BkQjaQkJZ6Qd4h9tm_Onaj-_P9n2aF5A",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "localhost:8090/api/v1/parking/10",
+									"host": [
+										"localhost"
+									],
+									"port": "8090",
+									"path": [
+										"api",
+										"v1",
+										"parking",
+										"10"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Obtener parqueadero",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLmNvbSIsImlhdCI6MTcxNDI0Mjg5MSwiZXhwIjoxNzE0MjY0NDkxLCJpZCI6MSwicm9sZSI6IkFETUlOIn0.i_9Kjl3WznGgV7eWHTsbzaQU8wp_k-DttYo50S8_hK1UYI4x8IRKT2BkQjaQkJZ6Qd4h9tm_Onaj-_P9n2aF5A",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8090/api/v1/parking/1",
+									"host": [
+										"localhost"
+									],
+									"port": "8090",
+									"path": [
+										"api",
+										"v1",
+										"parking",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Obtener todos los parqueaderos",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLmNvbSIsImlhdCI6MTcxNDI0Mjg5MSwiZXhwIjoxNzE0MjY0NDkxLCJpZCI6MSwicm9sZSI6IkFETUlOIn0.i_9Kjl3WznGgV7eWHTsbzaQU8wp_k-DttYo50S8_hK1UYI4x8IRKT2BkQjaQkJZ6Qd4h9tm_Onaj-_P9n2aF5A",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8090/api/v1/parking?page=0&size=10",
+									"host": [
+										"localhost"
+									],
+									"port": "8090",
+									"path": [
+										"api",
+										"v1",
+										"parking"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Obtener los vehículos que están estacionados en un parqueadero",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLmNvbSIsImlhdCI6MTcxNDMzNDkwMywiZXhwIjoxNzE0MzU2NTAzLCJpZCI6MSwicm9sZSI6IkFETUlOIn0.khJNoDX3sG4RI0YNnUkoB3lwIuejkgBquv9OUYEa01JXeXs0gIIqw8fp_P-j4IfcDCaus5jBd-n73CC0IV-qQQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8090/api/v1/parking/2/vehicle?page=0&size=10",
+									"host": [
+										"localhost"
+									],
+									"port": "8090",
+									"path": [
+										"api",
+										"v1",
+										"parking",
+										"2",
+										"vehicle"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Socio",
+					"item": [
+						{
+							"name": "Obtener todos los parqueaderos del socio",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2hhbnBpbmVkYTIwMDc5QGdtYWlsLmNvbSIsImlhdCI6MTcxNDQ5OTA1MSwiZXhwIjoxNzE0NTIwNjUxLCJpZCI6Mywicm9sZSI6IlNPQ0lPIn0.5mRjrJqiRagzmw42vLiEnGK_m0W83zo71p7nLmyA_dAmtZypKhvS7Wc7UBNfi71rEpg3hA7qBUVQlOeRFJ4WhA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8090/api/v1/parking?page=0&size=10",
+									"host": [
+										"localhost"
+									],
+									"port": "8090",
+									"path": [
+										"api",
+										"v1",
+										"parking"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Registrar entrada de vehiculo en un parqueadero del socio",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2hhbnBpbmVkYTIwMDc5QGdtYWlsLmNvbSIsImlhdCI6MTcxNDQ5OTA1MSwiZXhwIjoxNzE0NTIwNjUxLCJpZCI6Mywicm9sZSI6IlNPQ0lPIn0.5mRjrJqiRagzmw42vLiEnGK_m0W83zo71p7nLmyA_dAmtZypKhvS7Wc7UBNfi71rEpg3hA7qBUVQlOeRFJ4WhA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"licensePlate\": \"ERS521\",\r\n    \"description\": \"spark azul 2020\",\r\n    \"parkingId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8090/api/v1/historial/vehicle-entry",
+									"host": [
+										"localhost"
+									],
+									"port": "8090",
+									"path": [
+										"api",
+										"v1",
+										"historial",
+										"vehicle-entry"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Obtener los vehículos que están estacionados en un parqueadero del socio",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2hhbnBpbmVkYTIwMDc5QGdtYWlsLmNvbSIsImlhdCI6MTcxNDQ5OTA1MSwiZXhwIjoxNzE0NTIwNjUxLCJpZCI6Mywicm9sZSI6IlNPQ0lPIn0.5mRjrJqiRagzmw42vLiEnGK_m0W83zo71p7nLmyA_dAmtZypKhvS7Wc7UBNfi71rEpg3hA7qBUVQlOeRFJ4WhA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8090/api/v1/parking/1/vehicle?page=0&size=10",
+									"host": [
+										"localhost"
+									],
+									"port": "8090",
+									"path": [
+										"api",
+										"v1",
+										"parking",
+										"1",
+										"vehicle"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Registrar salida de vehiculo en un parqueadero del socio",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2hhbnBpbmVkYTIwMDc5QGdtYWlsLmNvbSIsImlhdCI6MTcxNDQ5OTA1MSwiZXhwIjoxNzE0NTIwNjUxLCJpZCI6Mywicm9sZSI6IlNPQ0lPIn0.5mRjrJqiRagzmw42vLiEnGK_m0W83zo71p7nLmyA_dAmtZypKhvS7Wc7UBNfi71rEpg3hA7qBUVQlOeRFJ4WhA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"licensePlate\": \"jte123\",\r\n    \"parkingId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8090/api/v1/historial/vehicle-departure",
+									"host": [
+										"localhost"
+									],
+									"port": "8090",
+									"path": [
+										"api",
+										"v1",
+										"historial",
+										"vehicle-departure"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Indicadores",
+					"item": [
+						{
+							"name": "Top 10 vehiculos más registrados en todos los parqueaderos",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2hhbnBpbmVkYTIwMDc5QGdtYWlsLmNvbSIsImlhdCI6MTcxNDQ5OTA1MSwiZXhwIjoxNzE0NTIwNjUxLCJpZCI6Mywicm9sZSI6IlNPQ0lPIn0.5mRjrJqiRagzmw42vLiEnGK_m0W83zo71p7nLmyA_dAmtZypKhvS7Wc7UBNfi71rEpg3hA7qBUVQlOeRFJ4WhA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8090/api/v1/metric/top-10-most-parked-vehicles",
+									"host": [
+										"localhost"
+									],
+									"port": "8090",
+									"path": [
+										"api",
+										"v1",
+										"metric",
+										"top-10-most-parked-vehicles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Top 10 vehiculos más registrados en un parqueadero",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2hhbnBpbmVkYTIwMDc5QGdtYWlsLmNvbSIsImlhdCI6MTcxNDQ5OTA1MSwiZXhwIjoxNzE0NTIwNjUxLCJpZCI6Mywicm9sZSI6IlNPQ0lPIn0.5mRjrJqiRagzmw42vLiEnGK_m0W83zo71p7nLmyA_dAmtZypKhvS7Wc7UBNfi71rEpg3hA7qBUVQlOeRFJ4WhA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8090/api/v1/metric/top-10-most-parked-vehicles/parking/1",
+									"host": [
+										"localhost"
+									],
+									"port": "8090",
+									"path": [
+										"api",
+										"v1",
+										"metric",
+										"top-10-most-parked-vehicles",
+										"parking",
+										"1"
+									]
+								},
+								"description": "# Get Top 10 Most Parked Vehicles By Parking\n\nThis endpoint retrieves the top 10 most parked vehicles in a specific parking. If the socio user is not socio of the parking, returns error code 409.\n\n## Request\n\n- Method: GET\n- Endpoint: `localhost:8090/api/v1/metric/top-10-most-parked-vehicles/parking/3`\n    \n\n## Response\n\nThe response is a JSON array containing objects with the following properties:\n\n- `vehicle` (object): Details of the vehicle including `id` (number) and `licensePlate` (string).\n- `count` (number): The count of the specific vehicle parked.\n    \n\nExample response body:\n\n``` json\n[\n    {\n        \"vehicle\": {\n            \"id\": 1,\n            \"licensePlate\": \"ABC123\"\n        },\n        \"count\": 2\n    }\n]\n\n ```"
+							},
+							"response": []
+						},
+						{
+							"name": "Obtener vehículos estacionados por primera vez en un parqueadero",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2hhbnBpbmVkYTIwMDc5QGdtYWlsLmNvbSIsImlhdCI6MTcxNDQ5OTA1MSwiZXhwIjoxNzE0NTIwNjUxLCJpZCI6Mywicm9sZSI6IlNPQ0lPIn0.5mRjrJqiRagzmw42vLiEnGK_m0W83zo71p7nLmyA_dAmtZypKhvS7Wc7UBNfi71rEpg3hA7qBUVQlOeRFJ4WhA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8090/api/v1/metric/first-time-parked-vehicles/parking/1",
+									"host": [
+										"localhost"
+									],
+									"port": "8090",
+									"path": [
+										"api",
+										"v1",
+										"metric",
+										"first-time-parked-vehicles",
+										"parking",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Buscar vehículos parqueados por coincidencia en la placa",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2hhbnBpbmVkYTIwMDc5QGdtYWlsLmNvbSIsImlhdCI6MTcxNDQ5OTA1MSwiZXhwIjoxNzE0NTIwNjUxLCJpZCI6Mywicm9sZSI6IlNPQ0lPIn0.5mRjrJqiRagzmw42vLiEnGK_m0W83zo71p7nLmyA_dAmtZypKhvS7Wc7UBNfi71rEpg3hA7qBUVQlOeRFJ4WhA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8090/api/v1/metric/vehicle/m",
+									"host": [
+										"localhost"
+									],
+									"port": "8090",
+									"path": [
+										"api",
+										"v1",
+										"metric",
+										"vehicle",
+										"m"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Obtener ganancias de un parqueadero del socio",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2hhbnBpbmVkYTIwMDc5QGdtYWlsLmNvbSIsImlhdCI6MTcxNDQ5OTA1MSwiZXhwIjoxNzE0NTIwNjUxLCJpZCI6Mywicm9sZSI6IlNPQ0lPIn0.5mRjrJqiRagzmw42vLiEnGK_m0W83zo71p7nLmyA_dAmtZypKhvS7Wc7UBNfi71rEpg3hA7qBUVQlOeRFJ4WhA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8090/api/v1/metric/cash-income/parking/1",
+									"host": [
+										"localhost"
+									],
+									"port": "8090",
+									"path": [
+										"api",
+										"v1",
+										"metric",
+										"cash-income",
+										"parking",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"admin@mail.com\",\r\n    \"password\": \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8090/api/login",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2hhbnBpbmVkYTIwMDc4QGdtYWlsLmNvbSIsImlhdCI6MTcxNDIzODY0NywiZXhwIjoxNzE0MjYwMjQ3LCJpZCI6Miwicm9sZSI6IlNPQ0lPIn0.FxQg-JzbwSI8aw2OS9ZYr6a2YJpBJ9UiNsQ7RI_WJ9HoTML_7sq7bYHy8WCit1HbCIYC47jn2BqmaIjIBa2J0w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8090/api/logout",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

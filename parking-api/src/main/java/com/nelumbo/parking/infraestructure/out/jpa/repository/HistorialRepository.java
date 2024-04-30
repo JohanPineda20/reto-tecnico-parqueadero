@@ -6,6 +6,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 public interface HistorialRepository extends JpaRepository<HistorialEntity, Long> {
@@ -58,4 +60,25 @@ public interface HistorialRepository extends JpaRepository<HistorialEntity, Long
             "AND h.vehicle.licensePlate ILIKE %:licensePlate% " +
             "AND h.departureDate IS NULL")
     List<HistorialEntity> findByVehicleLicensePlateContainingIgnoreCaseAndDepartureDateIsNullInSocioParkings(Long socioId, String licensePlate); //Socio
+
+
+    //Ganancias de un parqueadero - Socio
+    @Query("SELECT COALESCE(SUM(h.payment), 0) FROM HistorialEntity h " +
+            "WHERE h.parking.id =:parkingId " +
+            "AND DATE(h.departureDate) = :date")
+    BigDecimal findTotalPaymentByDay(Long parkingId, LocalDate date);
+    @Query("SELECT COALESCE(SUM(h.payment), 0) FROM HistorialEntity h " +
+            "WHERE h.parking.id =:parkingId " +
+            "AND WEEK(h.departureDate) = :week " +
+            "AND YEAR(h.departureDate) = :year")
+    BigDecimal findTotalPaymentByWeek(Long parkingId, int week, int year);
+    @Query("SELECT COALESCE(SUM(h.payment), 0) FROM HistorialEntity h " +
+            "WHERE h.parking.id =:parkingId " +
+            "AND MONTH(h.departureDate) = :month " +
+            "AND YEAR(h.departureDate) = :year")
+    BigDecimal findTotalPaymentByMonth(Long parkingId, int month, int year);
+    @Query("SELECT COALESCE(SUM(h.payment), 0) FROM HistorialEntity h " +
+            "WHERE h.parking.id =:parkingId " +
+            "AND YEAR(h.departureDate) = :year")
+    BigDecimal findTotalPaymentByYear(Long parkingId, int year);
 }

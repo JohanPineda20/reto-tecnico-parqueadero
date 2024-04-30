@@ -9,7 +9,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.temporal.WeekFields;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -80,5 +85,18 @@ public class HistorialPostgresqlAdapter implements IHistorialPersistencePort {
                 .stream()
                 .map(historialEntityMapper::toHistorialModel)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Map<String, BigDecimal> getCashIncomeByParking(Long parkingId, LocalDate date){
+        Map<String, BigDecimal> cashIncomes = new HashMap<>();
+        int week = date.get(WeekFields.ISO.weekOfWeekBasedYear());
+        int month = date.getMonthValue();
+        int year = date.getYear();
+        cashIncomes.put("today",historialRepository.findTotalPaymentByDay(parkingId, date));
+        cashIncomes.put("week", historialRepository.findTotalPaymentByWeek(parkingId, week, year ));
+        cashIncomes.put("month",historialRepository.findTotalPaymentByMonth(parkingId, month, year));
+        cashIncomes.put("year", historialRepository.findTotalPaymentByYear(parkingId, year));
+        return cashIncomes;
     }
 }

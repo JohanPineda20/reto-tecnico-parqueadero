@@ -104,6 +104,16 @@ public class ParkingController {
                                                                 @RequestParam(defaultValue = "10") Integer size){
         return ResponseEntity.status(HttpStatus.OK).body(parkingHandler.getAllParkings(page, size));
     }
+    @SecurityRequirement(name = "jwt")
+    @Operation(summary = "Get all vehicles in a parking",
+            description = "Admin and socio users are allowed to get all vehicles in a parking")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Vehicles are successfully returned", content = @Content(mediaType = "application/json", schema = @Schema(implementation = HistorialResponse.class))),
+            @ApiResponse(responseCode = "400", description = "Bad request", content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Exception"))),
+            @ApiResponse(responseCode = "401", description = "Access denied", content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Exception"))),
+            @ApiResponse(responseCode = "404", description = "Parking not found", content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Exception"))),
+            @ApiResponse(responseCode = "409", description = "Operation not allowed: User is not a socio of the parking", content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Exception")))
+    })
     @GetMapping("/{id}/vehicle")
     @PreAuthorize("hasAnyAuthority('ADMIN', 'SOCIO')")
     public ResponseEntity<List<HistorialResponse>> getAllVehiclesInParking(@RequestParam(defaultValue = "0") Integer page,

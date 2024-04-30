@@ -2,7 +2,10 @@ package com.nelumbo.parking.domain.ports.out;
 
 import com.nelumbo.parking.domain.model.HistorialModel;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 public interface IHistorialPersistencePort {
     List<HistorialModel> getAllHistorialByParkingIdAndDepartureDateIsNull(Long parkingId);
@@ -16,4 +19,5 @@ public interface IHistorialPersistencePort {
     List<Object[]> getFirstTimeParkedVehiclesByParking(Long parkingId);
     List<HistorialModel> getVehicleByLicensePlateInSocioParkings(Long socioId, String licensePlate);
     List<HistorialModel> getVehicleByLicensePlate(String licensePlate);
+    Map<String, BigDecimal> getCashIncomeByParking(Long parkingId, LocalDate date);
 }
