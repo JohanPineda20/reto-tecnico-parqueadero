@@ -19,3 +19,6 @@ spring:
 jwt:
   secret-key: ${JWT_SECRET_KEY}
   expiration-time: ${JWT_EXPIRATION_TIME}
+
+endpoints:
+  email-api: ${EMAIL_API:http://localhost:8091/api/v1/email}

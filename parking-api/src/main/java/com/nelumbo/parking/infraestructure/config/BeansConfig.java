@@ -13,6 +13,9 @@ import com.nelumbo.parking.domain.usecase.ParkingUseCase;
 import com.nelumbo.parking.domain.usecase.UserUseCase;
 import com.nelumbo.parking.domain.usecase.VehicleUseCase;
 import com.nelumbo.parking.infraestructure.out.authenticationinfo.AuthenticationInfoAdapter;
+import com.nelumbo.parking.infraestructure.out.feignclient.EmailFeignClient;
+import com.nelumbo.parking.infraestructure.out.feignclient.adapter.EmailServiceAdapter;
+import com.nelumbo.parking.infraestructure.out.feignclient.mapper.MessageRequestMapper;
 import com.nelumbo.parking.infraestructure.out.jpa.adapter.*;
 import com.nelumbo.parking.infraestructure.out.jpa.mapper.*;
 import com.nelumbo.parking.infraestructure.out.jpa.repository.*;
@@ -56,6 +59,11 @@ public class BeansConfig {
     public IAuthenticationInfoPort authenticationInfoPort(){
         return new AuthenticationInfoAdapter();
     }
+    @Bean
+    public IMessageServicePort messageServicePort(EmailFeignClient emailFeignClient,
+                                                  MessageRequestMapper messageRequestMapper){
+        return new EmailServiceAdapter(emailFeignClient, messageRequestMapper);
+    }
 
     @Bean
     public IUserServicePort userServicePort(IUserPersistencePort userPersistencePort,
@@ -73,8 +81,9 @@ public class BeansConfig {
     public IHistorialServicePort historialServicePort(IHistorialPersistencePort historialPersistencePort,
                                                       IParkingServicePort parkingServicePort,
                                                       IVehicleServicePort vehicleServicePort,
-                                                      IAuthenticationInfoPort authenticationInfoPort){
-        return new HistorialUseCase(historialPersistencePort, parkingServicePort, vehicleServicePort, authenticationInfoPort);
+                                                      IAuthenticationInfoPort authenticationInfoPort,
+                                                      IMessageServicePort messageServicePort){
+        return new HistorialUseCase(historialPersistencePort, parkingServicePort, vehicleServicePort, authenticationInfoPort, messageServicePort);
     }
     @Bean
     public IVehicleServicePort vehicleServicePort(IVehiclePersistencePort vehiclePersistencePort){

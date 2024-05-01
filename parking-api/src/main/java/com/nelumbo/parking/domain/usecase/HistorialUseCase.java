@@ -1,6 +1,7 @@
 package com.nelumbo.parking.domain.usecase;
 
 import com.nelumbo.parking.domain.model.HistorialModel;
+import com.nelumbo.parking.domain.model.MessageModel;
 import com.nelumbo.parking.domain.model.ParkingModel;
 import com.nelumbo.parking.domain.model.VehicleModel;
 import com.nelumbo.parking.domain.ports.in.IHistorialServicePort;
@@ -8,6 +9,7 @@ import com.nelumbo.parking.domain.ports.in.IParkingServicePort;
 import com.nelumbo.parking.domain.ports.in.IVehicleServicePort;
 import com.nelumbo.parking.domain.ports.out.IAuthenticationInfoPort;
 import com.nelumbo.parking.domain.ports.out.IHistorialPersistencePort;
+import com.nelumbo.parking.domain.ports.out.IMessageServicePort;
 import com.nelumbo.parking.domain.utils.Constants;
 import com.nelumbo.parking.domain.utils.exceptions.DataAlreadyExistsException;
 import com.nelumbo.parking.domain.utils.exceptions.DomainException;
@@ -28,6 +30,7 @@ public class HistorialUseCase implements IHistorialServicePort {
     private final IParkingServicePort parkingServicePort;
     private final IVehicleServicePort vehicleServicePort;
     private final IAuthenticationInfoPort authenticationInfoPort;
+    private final IMessageServicePort messageServicePort;
 
     @Override
     public Map<String, Long> registerVehicleEntry(VehicleModel vehicleModel, Long parkingId) {
@@ -51,6 +54,10 @@ public class HistorialUseCase implements IHistorialServicePort {
         historialModel.setVehicle(vehicleModel1);
         historialModel.setEntryDate(LocalDateTime.now());
         Long historialId = historialPersistencePort.save(historialModel).getId();
+
+        sendMessage(Collections.singletonList(parkingModel.getUser().getEmail()),
+                Constants.SUBJECT_ENTRY,
+                String.format(Constants.MESSAGE_ENTRY, vehicleModel.getLicensePlate(), parkingModel.getName()));
 
         return Collections.singletonMap("id", historialId);
     }
@@ -87,6 +94,11 @@ public class HistorialUseCase implements IHistorialServicePort {
         historialModel.setDepartureDate(departureDate);
         historialModel.setPayment(payment);
         historialPersistencePort.save(historialModel);
+
+        sendMessage(Collections.singletonList(parkingModel.getUser().getEmail()),
+                Constants.SUBJECT_DEPARTURE,
+                String.format(Constants.MESSAGE_DEPARTURE, licensePlate, parkingModel.getName()));
+
         return Collections.singletonMap("mensaje","Salida registrada");
     }
     @Override
@@ -138,5 +150,17 @@ public class HistorialUseCase implements IHistorialServicePort {
     private Double calculateTime(LocalDateTime entryDate, LocalDateTime departureDate) {
         Duration duration = Duration.between(entryDate, departureDate);
         return duration.toMinutes() / 60.0;
+    }
+    private void sendMessage(List<String> to, String subject, String message) {
+        MessageModel messageModel = new MessageModel();
+        messageModel.setTo(to);
+        messageModel.setSubject(subject);
+        messageModel.setMessage(message);
+        try {
+            messageServicePort.sendMessage(messageModel);
+            log.info("message sent");
+        }catch (Exception e) {
+            log.error("correo-api error: ".concat(e.getMessage()));
+        }
     }
 }

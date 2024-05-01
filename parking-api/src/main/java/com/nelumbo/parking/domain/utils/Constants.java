@@ -19,4 +19,8 @@ public class Constants {
     public static final String EMAIL = "email";
     public static final String USER_ALREADY_EXISTS = "User with %s: %s already exists";
     public static final String PARKING_ALREADY_EXISTS = "There is already another parking with the same name";
+    public static final String SUBJECT_ENTRY = "Vehicle entry to the parking";
+    public static final String SUBJECT_DEPARTURE = "Vehicle departure from the parking";
+    public static final String MESSAGE_ENTRY = "Vehicle with license plate %s entered Parking %s";
+    public static final String MESSAGE_DEPARTURE = "Vehicle with license plate %s departed Parking %s";
 }
