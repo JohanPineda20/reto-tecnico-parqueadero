@@ -5,10 +5,11 @@
 
 ## Descripción
 
-Este proyecto es una aplicación web desarrollada con Spring Boot que proporciona servicios RESTful para gestionar el control de vehículos en los parqueaderos de varios socios y 
-además almacena un histórico de los vehículos parqueados para la generación de indicadores clave. Se manejan dos roles: ADMIN y SOCIO.
+Este proyecto es una aplicación web desarrollada con Spring Boot que proporciona servicios RESTful para gestionar el control de vehículos en los parqueaderos de varios socios y además almacena un histórico de los vehículos parqueados para la generación de indicadores clave. Se manejan dos roles: ADMIN y SOCIO.
+
 usuario: admin@mail.com 
 pass: admin 
+
 El administrador es el único que puede agregar usuarios de tipo SOCIO.
 
 ## Tecnologías Utilizadas
@@ -47,6 +48,6 @@ Para desplegar el proyecto en local, sigue los siguientes pasos:
    ### email-api
    ![variables entorno email-api](https://github.com/JohanPineda20/reto-tecnico-parqueadero/assets/80443897/b6e8ceff-f7eb-40bd-9358-afc4ac2cff03)
     - MAIL_USERNAME con el correo electrónico gmail el cual quieres enviar emails y MAIL_PASSWORD con la contraseña de aplicaciones del correo electrónico (ir a configuraciones de la cuenta gmail y generar una contraseña de aplicaciones)
-3. Ejecuta el microservicio de email-api y luego el de parking-api
+3. Ejecuta el microservicio de email-api y luego el de parking-api. Para correr los tests, ejecutar lo siguiente: `./gradlew test`
 4. Importa la colección de postman y prueba los diferentes endpoints. Tener en cuenta que los endpoints están protegidos asi que primero hay que iniciar sesión y luego añadir el token en cada petición
 5. Para obtener más detalles sobre cómo utilizar cada endpoint, consulta la documentación detallada de la API en http://localhost:8090/api/swagger-ui/index.html
