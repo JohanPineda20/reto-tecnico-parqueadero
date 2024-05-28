@@ -14,10 +14,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -80,9 +77,9 @@ public class MetricController {
             @ApiResponse(responseCode = "400", description = "Bad request", content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Exception"))),
             @ApiResponse(responseCode = "401", description = "Access denied", content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Exception")))
     })
-    @GetMapping("/vehicle/{licensePlate}")
+    @GetMapping("/vehicle")
     @PreAuthorize("hasAnyAuthority('ADMIN', 'SOCIO')")
-    public ResponseEntity<List<VehicleResponse>> getVehicleByLicensePlate(@PathVariable String licensePlate){
+    public ResponseEntity<List<VehicleResponse>> getVehicleByLicensePlate(@RequestParam String licensePlate){
         return ResponseEntity.ok(historialHandler.getVehicleByLicensePlate(licensePlate));
     }
     @SecurityRequirement(name = "jwt")

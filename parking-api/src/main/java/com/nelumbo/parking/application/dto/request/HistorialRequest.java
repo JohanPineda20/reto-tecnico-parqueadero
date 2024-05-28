@@ -9,6 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class HistorialRequest {
+    @NotNull(message = "The license plate is required")
     @Pattern(regexp = "^[a-zA-Z0-9]{6}$", message = "The license plate must consist of exactly 6 characters. It should contain only alphanumeric characters; special characters and the letter 'ñ' are not permitted.")
     private String licensePlate;
     private String description;

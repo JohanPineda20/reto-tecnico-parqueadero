@@ -58,7 +58,7 @@ public class SecurityConfig {
                 .addFilterBefore(authorizationFilter, UsernamePasswordAuthenticationFilter.class)
                 .logout(logout -> logout.addLogoutHandler(customLogoutHandler)
                         .logoutUrl("/logout")
-                        .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK)))
+                        .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.NO_CONTENT)))
                 .exceptionHandling(exc -> exc.authenticationEntryPoint(jwtEntryPoint))
                 .build();
     }

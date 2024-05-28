@@ -1,15 +1,15 @@
 package com.nelumbo.parking.infraestructure.out.jpa.adapter;
 
+import com.nelumbo.parking.domain.model.CustomPage;
 import com.nelumbo.parking.domain.model.ParkingModel;
 import com.nelumbo.parking.domain.ports.out.IParkingPersistencePort;
 import com.nelumbo.parking.infraestructure.out.jpa.mapper.ParkingEntityMapper;
 import com.nelumbo.parking.infraestructure.out.jpa.repository.ParkingRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 public class ParkingPostgresqlAdapter implements IParkingPersistencePort {
@@ -36,20 +36,32 @@ public class ParkingPostgresqlAdapter implements IParkingPersistencePort {
     }
 
     @Override
-    public List<ParkingModel> getAllParkings(Integer page, Integer size) {
+    public CustomPage<ParkingModel> getAllParkings(Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "name"));
-        return parkingRepository.findAll(pageable).getContent()
-                .stream()
-                .map(parkingEntityMapper::toParkingModel)
-                .toList();
+        Page<ParkingModel> pageParkingModel = parkingRepository.findAll(pageable).map(parkingEntityMapper::toParkingModel);
+        return new CustomPage<>(
+                pageParkingModel.getContent(),
+                pageParkingModel.getNumber(),
+                pageParkingModel.getSize(),
+                pageParkingModel.getTotalElements(),
+                pageParkingModel.getTotalPages(),
+                pageParkingModel.isLast(),
+                pageParkingModel.isFirst()
+        );
     }
 
     @Override
-    public List<ParkingModel> getAllParkingsFromSocio(Integer page, Integer size, Long socioId) {
+    public CustomPage<ParkingModel> getAllParkingsFromSocio(Integer page, Integer size, Long socioId) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "name"));
-        return parkingRepository.findAllByUserId(pageable, socioId).getContent()
-                .stream()
-                .map(parkingEntityMapper::toParkingModel)
-                .toList();
+        Page<ParkingModel> pageParkingModel = parkingRepository.findAllByUserId(pageable, socioId).map(parkingEntityMapper::toParkingModel);
+        return new CustomPage<>(
+                pageParkingModel.getContent(),
+                pageParkingModel.getNumber(),
+                pageParkingModel.getSize(),
+                pageParkingModel.getTotalElements(),
+                pageParkingModel.getTotalPages(),
+                pageParkingModel.isLast(),
+                pageParkingModel.isFirst()
+        );
     }
 }

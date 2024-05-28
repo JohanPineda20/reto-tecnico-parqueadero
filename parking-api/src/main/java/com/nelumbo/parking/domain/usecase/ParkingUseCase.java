@@ -1,5 +1,6 @@
 package com.nelumbo.parking.domain.usecase;
 
+import com.nelumbo.parking.domain.model.CustomPage;
 import com.nelumbo.parking.domain.model.ParkingModel;
 import com.nelumbo.parking.domain.model.UserModel;
 import com.nelumbo.parking.domain.ports.in.IParkingServicePort;
@@ -52,7 +53,7 @@ public class ParkingUseCase implements IParkingServicePort {
         return parkingModel;
     }
     @Override
-    public List<ParkingModel> getAllParkings(Integer page, Integer size) {
+    public CustomPage<ParkingModel> getAllParkings(Integer page, Integer size) {
         String role = authenticationInfoPort.getRolFromAuthentication();
         if(Objects.equals(role, Constants.SOCIO)) {
             Long socioId = authenticationInfoPort.getIdFromAuthentication();

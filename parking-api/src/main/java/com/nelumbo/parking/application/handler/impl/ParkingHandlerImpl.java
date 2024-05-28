@@ -6,6 +6,8 @@ import com.nelumbo.parking.application.dto.response.ParkingResponse;
 import com.nelumbo.parking.application.dto.response.VehicleResponse;
 import com.nelumbo.parking.application.handler.IParkingHandler;
 import com.nelumbo.parking.application.mapper.ParkingDtoMapper;
+import com.nelumbo.parking.domain.model.CustomPage;
+import com.nelumbo.parking.domain.model.ParkingModel;
 import com.nelumbo.parking.domain.ports.in.IHistorialServicePort;
 import com.nelumbo.parking.domain.ports.in.IParkingServicePort;
 import lombok.RequiredArgsConstructor;
@@ -39,11 +41,21 @@ public class ParkingHandlerImpl implements IParkingHandler {
         return parkingDtoMapper.toParkingResponse(parkingServicePort.getParkingById(id));
     }
     @Override
-    public List<ParkingResponse> getAllParkings(Integer page, Integer size) {
-        return parkingServicePort.getAllParkings(page, size)
+    public CustomPage<ParkingResponse> getAllParkings(Integer page, Integer size) {
+        CustomPage<ParkingModel> pageParkingModel = parkingServicePort.getAllParkings(page, size);
+        List<ParkingResponse> parkingResponseList = pageParkingModel.getContent()
                 .stream()
                 .map(parkingDtoMapper::toParkingResponse)
                 .collect(Collectors.toList());
+        return new CustomPage<>(
+                parkingResponseList,
+                pageParkingModel.getNumber(),
+                pageParkingModel.getSize(),
+                pageParkingModel.getTotalElements(),
+                pageParkingModel.getTotalPages(),
+                pageParkingModel.isLast(),
+                pageParkingModel.isFirst()
+        );
     }
     @Override
     public List<HistorialResponse> getAllVehiclesInParking(Integer page, Integer size, Long parkingId) {

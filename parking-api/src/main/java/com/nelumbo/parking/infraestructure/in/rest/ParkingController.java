@@ -4,6 +4,7 @@ import com.nelumbo.parking.application.dto.request.ParkingRequest;
 import com.nelumbo.parking.application.dto.response.HistorialResponse;
 import com.nelumbo.parking.application.dto.response.ParkingResponse;
 import com.nelumbo.parking.application.handler.IParkingHandler;
+import com.nelumbo.parking.domain.model.CustomPage;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -100,8 +101,8 @@ public class ParkingController {
     })
     @GetMapping
     @PreAuthorize("hasAnyAuthority('ADMIN', 'SOCIO')")
-    public ResponseEntity<List<ParkingResponse>> getAllParkings(@RequestParam(defaultValue = "0") Integer page,
-                                                                @RequestParam(defaultValue = "10") Integer size){
+    public ResponseEntity<CustomPage<ParkingResponse>> getAllParkings(@RequestParam(defaultValue = "0") Integer page,
+                                                                      @RequestParam(defaultValue = "10") Integer size){
         return ResponseEntity.status(HttpStatus.OK).body(parkingHandler.getAllParkings(page, size));
     }
     @SecurityRequirement(name = "jwt")

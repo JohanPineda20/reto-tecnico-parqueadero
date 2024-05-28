@@ -1,5 +1,6 @@
 package com.nelumbo.parking.domain.usecase;
 
+import com.nelumbo.parking.domain.model.CustomPage;
 import com.nelumbo.parking.domain.model.ParkingModel;
 import com.nelumbo.parking.domain.model.RoleModel;
 import com.nelumbo.parking.domain.model.UserModel;
@@ -206,7 +207,7 @@ class ParkingUseCaseTest {
         int page = 0;
         int size = 10;
         String role = "ADMIN";
-        List<ParkingModel> parkingModelList = Collections.emptyList();
+        CustomPage<ParkingModel> parkingModelList = new CustomPage<>();
         when(authenticationInfoPort.getRolFromAuthentication()).thenReturn(role);
         when(parkingPersistencePort.getAllParkings(page, size)).thenReturn(parkingModelList);
 
@@ -224,7 +225,7 @@ class ParkingUseCaseTest {
         int page = 0;
         int size = 10;
         String role = "SOCIO";
-        List<ParkingModel> parkingModelList = Collections.emptyList();
+        CustomPage<ParkingModel> parkingModelList = new CustomPage<>();
         when(authenticationInfoPort.getRolFromAuthentication()).thenReturn(role);
         when(parkingPersistencePort.getAllParkingsFromSocio(page, size, 0L)).thenReturn(parkingModelList);
 
