@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -46,7 +45,7 @@ public class ParkingHandlerImpl implements IParkingHandler {
         List<ParkingResponse> parkingResponseList = pageParkingModel.getContent()
                 .stream()
                 .map(parkingDtoMapper::toParkingResponse)
-                .collect(Collectors.toList());
+                .toList();
         return new CustomPage<>(
                 parkingResponseList,
                 pageParkingModel.getNumber(),
@@ -70,6 +69,6 @@ public class ParkingHandlerImpl implements IParkingHandler {
                     historialResponse.setEntryDate(historialModel.getEntryDate());
                     return historialResponse;
                 })
-                .collect(Collectors.toList());
+                .toList();
     }
 }

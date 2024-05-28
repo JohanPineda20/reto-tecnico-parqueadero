@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -43,7 +42,7 @@ public class HistorialHandler implements IHistorialHandler {
                     metricVehicleResponse.setVehicle(vehicleResponse);
                     metricVehicleResponse.setCount((Long) objectArray[2]);
                     return metricVehicleResponse;
-                }).collect(Collectors.toList());
+                }).toList();
     }
     @Override
     public List<MetricVehicleResponse> getTop10MostParkedVehiclesByParking(Long id) {
@@ -57,7 +56,7 @@ public class HistorialHandler implements IHistorialHandler {
                     metricVehicleResponse.setVehicle(vehicleResponse);
                     metricVehicleResponse.setCount((Long) objectArray[2]);
                     return metricVehicleResponse;
-                }).collect(Collectors.toList());
+                }).toList();
     }
     @Override
     public List<VehicleResponse> getFirstTimeParkedVehiclesByParking(Long id) {
@@ -68,7 +67,7 @@ public class HistorialHandler implements IHistorialHandler {
                     vehicleResponse.setId((Long) objectArray[0]);
                     vehicleResponse.setLicensePlate(objectArray[1].toString());
                     return vehicleResponse;
-                }).collect(Collectors.toList());
+                }).toList();
     }
     @Override
     public List<VehicleResponse> getVehicleByLicensePlate(String licensePlate) {
@@ -79,7 +78,7 @@ public class HistorialHandler implements IHistorialHandler {
                     vehicleResponse.setId(historialModel.getVehicle().getId());
                     vehicleResponse.setLicensePlate(historialModel.getVehicle().getLicensePlate());
                     return vehicleResponse;
-                }).collect(Collectors.toList());
+                }).toList();
     }
     @Override
     public Map<String, BigDecimal> getCashIncomeByParking(Long id) {

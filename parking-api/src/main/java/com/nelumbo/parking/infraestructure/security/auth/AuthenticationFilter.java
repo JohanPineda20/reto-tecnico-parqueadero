@@ -1,6 +1,7 @@
 package com.nelumbo.parking.infraestructure.security.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nelumbo.parking.domain.utils.exceptions.DomainException;
 import com.nelumbo.parking.infraestructure.out.jpa.entity.UserEntity;
 import com.nelumbo.parking.infraestructure.out.jpa.repository.UserRepository;
 import com.nelumbo.parking.infraestructure.security.jwt.JwtProvider;
@@ -32,7 +33,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         try {
             credentials = new ObjectMapper().readValue(request.getInputStream(), CredentialsRequest.class);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new DomainException(e.getMessage());
         }
 
         UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
@@ -51,8 +52,10 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         String token = jwtProvider.createToken(authResult);
 
         UserEntity userEntity = userRepository.findByEmail(authResult.getName()).orElse(null);
-        userEntity.setToken(token);
-        userRepository.save(userEntity);
+        if(userEntity!= null) {
+            userEntity.setToken(token);
+            userRepository.save(userEntity);
+        }
 
         Map<String, Object> res = new HashMap<>();
         res.put("token", token);

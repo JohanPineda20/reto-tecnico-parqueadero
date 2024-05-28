@@ -78,7 +78,6 @@ public class SecurityConfig {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
-        //corsConfiguration.setAllowedOrigins(Arrays.asList("http://localhost:4200", "http://localhost:9000"));
         corsConfiguration.addAllowedOrigin("*");
         corsConfiguration.addAllowedHeader("*");
         corsConfiguration.addAllowedMethod("*");
@@ -86,8 +85,4 @@ public class SecurityConfig {
         source.registerCorsConfiguration("/**", corsConfiguration);
         return source;
     }
-
-    /*public static void main(String[] args) {
-        System.out.println("pass admin: " + new BCryptPasswordEncoder().encode("admin"));
-    }*/
 }

@@ -15,7 +15,6 @@ import java.time.temporal.WeekFields;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class HistorialPostgresqlAdapter implements IHistorialPersistencePort {
@@ -28,7 +27,7 @@ public class HistorialPostgresqlAdapter implements IHistorialPersistencePort {
         return historialRepository.findByParkingIdAndDepartureDateIsNull(parkingId)
                 .stream()
                 .map(historialEntityMapper::toHistorialModel)
-                .collect(Collectors.toList());
+                .toList();
     }
     @Override
     public HistorialModel findByVehicleIdAndDepartureDateIsNull(Long vehicleId) {
@@ -44,7 +43,7 @@ public class HistorialPostgresqlAdapter implements IHistorialPersistencePort {
         return historialRepository.findByParkingIdAndDepartureDateIsNull(pageable, parkingId).getContent()
                 .stream()
                 .map(historialEntityMapper::toHistorialModel)
-                .collect(Collectors.toList());
+                .toList();
     }
     @Override
     public HistorialModel findByVehicleIdAndParkingIdAndDepartureDateIsNull(Long vehicleId, Long parkingId) {
@@ -76,7 +75,7 @@ public class HistorialPostgresqlAdapter implements IHistorialPersistencePort {
         return historialRepository.findByVehicleLicensePlateContainingIgnoreCaseAndDepartureDateIsNullInSocioParkings(socioId, licensePlate)
                 .stream()
                 .map(historialEntityMapper::toHistorialModel)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
@@ -84,7 +83,7 @@ public class HistorialPostgresqlAdapter implements IHistorialPersistencePort {
         return historialRepository.findByVehicleLicensePlateContainingIgnoreCaseAndDepartureDateIsNull(licensePlate)
                 .stream()
                 .map(historialEntityMapper::toHistorialModel)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override

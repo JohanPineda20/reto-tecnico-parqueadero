@@ -1,7 +1,6 @@
 package com.nelumbo.parking.infraestructure.in.rest;
 
 import com.nelumbo.parking.application.dto.response.MetricVehicleResponse;
-import com.nelumbo.parking.application.dto.response.ParkingResponse;
 import com.nelumbo.parking.application.dto.response.VehicleResponse;
 import com.nelumbo.parking.application.handler.IHistorialHandler;
 import io.swagger.v3.oas.annotations.Operation;

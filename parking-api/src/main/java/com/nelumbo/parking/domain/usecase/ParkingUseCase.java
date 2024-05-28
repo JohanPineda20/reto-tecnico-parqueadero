@@ -13,7 +13,6 @@ import com.nelumbo.parking.domain.utils.exceptions.DataNotFoundException;
 import com.nelumbo.parking.domain.utils.exceptions.DomainException;
 import lombok.RequiredArgsConstructor;
 
-import java.util.List;
 import java.util.Objects;
 
 @RequiredArgsConstructor
