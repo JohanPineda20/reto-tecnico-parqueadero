@@ -57,7 +57,8 @@ public class HistorialUseCase implements IHistorialServicePort {
 
         sendMessage(Collections.singletonList(parkingModel.getUser().getEmail()),
                 Constants.SUBJECT_ENTRY,
-                String.format(Constants.MESSAGE_ENTRY, vehicleModel.getLicensePlate(), parkingModel.getName()));
+                String.format(Constants.MESSAGE_ENTRY, vehicleModel.getLicensePlate(), parkingModel.getName()),
+                vehicleModel1.getLicensePlate());
 
         return Collections.singletonMap("id", historialId);
     }
@@ -97,7 +98,8 @@ public class HistorialUseCase implements IHistorialServicePort {
 
         sendMessage(Collections.singletonList(parkingModel.getUser().getEmail()),
                 Constants.SUBJECT_DEPARTURE,
-                String.format(Constants.MESSAGE_DEPARTURE, licensePlate, parkingModel.getName()));
+                String.format(Constants.MESSAGE_DEPARTURE, licensePlate, parkingModel.getName()),
+                vehicleModel.getLicensePlate());
 
         return Collections.singletonMap("mensaje","Salida registrada");
     }
@@ -151,11 +153,12 @@ public class HistorialUseCase implements IHistorialServicePort {
         Duration duration = Duration.between(entryDate, departureDate);
         return duration.toMinutes() / 60.0;
     }
-    private void sendMessage(List<String> to, String subject, String message) {
+    private void sendMessage(List<String> to, String subject, String message, String licensePlate) {
         MessageModel messageModel = new MessageModel();
         messageModel.setTo(to);
         messageModel.setSubject(subject);
         messageModel.setMessage(message);
+        messageModel.setLicensePlate(licensePlate);
         try {
             messageServicePort.sendMessage(messageModel);
             log.info("message sent");

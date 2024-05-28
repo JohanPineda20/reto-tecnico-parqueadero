@@ -9,4 +9,5 @@ public class MessageRequest {
     private List<String> to;
     private String subject;
     private String message;
+    private String licensePlate;
 }

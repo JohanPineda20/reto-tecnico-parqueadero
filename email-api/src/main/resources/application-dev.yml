@@ -3,6 +3,11 @@ spring:
     activate:
       on-profile:
         - dev
+  data:
+    mongodb:
+      host: ${HOST_MONGO:localhost}
+      port: ${PORT_MONGO:27017}
+      database: ${DATABASE_MONGO:email}
   mail:
     host: ${HOST_MAIL:smtp.gmail.com}
     username: ${MAIL_USERNAME}

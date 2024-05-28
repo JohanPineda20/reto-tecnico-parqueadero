@@ -8,4 +8,5 @@ public class Email {
     private List<String> to;
     private String subject;
     private String message;
+    private String licensePlate;
 }

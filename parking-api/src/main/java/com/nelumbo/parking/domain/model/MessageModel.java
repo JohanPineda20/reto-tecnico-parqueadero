@@ -15,4 +15,5 @@ public class MessageModel {
     private List<String> to;
     private String subject;
     private String message;
+    private String licensePlate;
 }
